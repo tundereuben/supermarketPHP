@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supermarket@Home - Fresh Groceries Delivered To Your Doorstep</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#10B981',
+                        secondary: '#047857',
+                        accent: '#F97316',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-secondary text-white py-2 text-center text-sm font-medium">
+        <p>🎉 Free Delivery on orders above ₦20,000! Shop Now.</p>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="index.html" class="flex items-center space-x-2">
+                <div class="bg-primary p-2 rounded-lg">
+                    <i class="fas fa-shopping-basket text-white text-xl"></i>
+                </div>
+                <span class="text-2xl font-bold text-gray-900 tracking-tight">Supermarket<span class="text-primary">@Home</span></span>
+            </a>
+
+            <!-- Search Bar (Desktop) -->
+            <div class="hidden md:flex flex-1 mx-8 relative group">
+                <input type="text" placeholder="Search for groceries, beverages, household items..." class="w-full pl-10 pr-4 py-2 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                <i class="fas fa-search absolute left-4 top-3 text-gray-400"></i>
+                <!-- Mock Search Results Dropdown -->
+                <div class="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-100 rounded-xl shadow-lg opacity-0 invisible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-300 z-50">
+                    <ul class="py-2">
+                        <li><a href="product-details.html" class="flex items-center space-x-3 px-4 py-2 hover:bg-gray-50">
+                            <img src="https://images.unsplash.com/photo-1550989460-0adf9ea622e2?auto=format&fit=crop&q=80&w=50" class="w-8 h-8 rounded-md object-cover">
+                            <div>
+                                <p class="font-medium text-gray-900 text-sm">Fresh Roma Tomatoes</p>
+                                <p class="text-xs text-gray-500">₦2,500 / 1kg</p>
+                            </div>
+                        </a></li>
+                        <li><a href="product-details.html" class="flex items-center space-x-3 px-4 py-2 hover:bg-gray-50">
+                            <img src="https://images.unsplash.com/photo-1523472721958-978152f4d69b?auto=format&fit=crop&q=80&w=50" class="w-8 h-8 rounded-md object-cover">
+                            <div>
+                                <p class="font-medium text-gray-900 text-sm">Basmati Premium Rice</p>
+                                <p class="text-xs text-gray-500">₦12,500 / 5kg</p>
+                            </div>
+                        </a></li>
+                        <li><a href="products.html" class="block px-4 py-2 text-sm text-primary font-bold hover:bg-gray-50">View all results</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- User Actions -->
+            <div class="flex items-center space-x-6">
+                <a href="login.html" class="hidden md:flex flex-col items-center text-gray-600 hover:text-primary transition">
+                    <i class="far fa-user text-xl"></i>
+                    <span class="text-xs mt-1">Account</span>
+                </a>
+                <a href="wishlist.html" class="hidden md:flex flex-col items-center text-gray-600 hover:text-primary transition relative">
+                    <i class="far fa-heart text-xl"></i>
+                    <span class="text-xs mt-1">Wishlist</span>
+                    <span class="absolute -top-1 -right-1 bg-accent text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center font-bold">3</span>
+                </a>
+                <a href="cart.html" class="flex flex-col items-center text-gray-600 hover:text-primary transition relative">
+                    <i class="fas fa-shopping-cart text-xl text-primary"></i>
+                    <span class="text-xs mt-1">Cart</span>
+                    <span class="absolute -top-1 -right-1 bg-accent text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center font-bold">5</span>
+                </a>
+                <button class="md:hidden text-gray-600">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Search Bar -->
+        <div class="md:hidden px-4 pb-3">
+            <div class="relative group">
+                <input type="text" placeholder="Search products..." class="w-full pl-10 pr-4 py-2 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                <i class="fas fa-search absolute left-4 top-3 text-gray-400"></i>
+                <!-- Mock Search Results Dropdown -->
+                <div class="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-100 rounded-xl shadow-lg opacity-0 invisible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-300 z-50">
+                    <ul class="py-2">
+                        <li><a href="product-details.html" class="flex items-center space-x-3 px-4 py-2 hover:bg-gray-50">
+                            <img src="https://images.unsplash.com/photo-1550989460-0adf9ea622e2?auto=format&fit=crop&q=80&w=50" class="w-8 h-8 rounded-md object-cover">
+                            <div>
+                                <p class="font-medium text-gray-900 text-sm">Fresh Roma Tomatoes</p>
+                                <p class="text-xs text-gray-500">₦2,500 / 1kg</p>
+                            </div>
+                        </a></li>
+                        <li><a href="product-details.html" class="flex items-center space-x-3 px-4 py-2 hover:bg-gray-50">
+                            <img src="https://images.unsplash.com/photo-1523472721958-978152f4d69b?auto=format&fit=crop&q=80&w=50" class="w-8 h-8 rounded-md object-cover">
+                            <div>
+                                <p class="font-medium text-gray-900 text-sm">Basmati Premium Rice</p>
+                                <p class="text-xs text-gray-500">₦12,500 / 5kg</p>
+                            </div>
+                        </a></li>
+                        <li><a href="products.html" class="block px-4 py-2 text-sm text-primary font-bold hover:bg-gray-50">View all results</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="bg-gray-100 border-t border-gray-200 hidden md:block">
+            <div class="container mx-auto px-4 flex items-center justify-between py-2">
+                <div class="flex items-center space-x-8">
+                    <div class="group relative">
+                        <button class="flex items-center space-x-2 font-semibold text-gray-700 hover:text-primary py-2">
+                            <i class="fas fa-th-large"></i>
+                            <span>All Categories</span>
+                        </button>
+                        <!-- Dropdown Visual -->
+                        <div class="absolute left-0 mt-0 w-56 bg-white border border-gray-100 shadow-xl rounded-b-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                            <ul class="py-2">
+                                <li><a href="products.html" class="block px-4 py-2 hover:bg-gray-50 hover:text-primary">Fruits & Vegetables</a></li>
+                                <li><a href="products.html" class="block px-4 py-2 hover:bg-gray-50 hover:text-primary">Dairy & Eggs</a></li>
+                                <li><a href="products.html" class="block px-4 py-2 hover:bg-gray-50 hover:text-primary">Meat & Seafood</a></li>
+                                <li><a href="products.html" class="block px-4 py-2 hover:bg-gray-50 hover:text-primary">Bakery & Snacks</a></li>
+                                <li><a href="products.html" class="block px-4 py-2 hover:bg-gray-50 hover:text-primary">Beverages</a></li>
+                                <li><a href="products.html" class="block px-4 py-2 hover:bg-gray-50 hover:text-primary">Frozen Foods</a></li>
+                                <li><a href="products.html" class="block px-4 py-2 hover:bg-gray-50 hover:text-primary">Household Essentials</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a href="products.html" class="text-gray-600 hover:text-primary font-medium py-2">Weekly Deals</a>
+                    <a href="subscriptions.html" class="text-gray-600 hover:text-primary font-medium py-2">Food Baskets</a>
+                    <a href="products.html" class="text-gray-600 hover:text-primary font-medium py-2">New Arrivals</a>
+                    <a href="about.html" class="text-gray-600 hover:text-primary font-medium py-2">About Us</a>
+                </div>
+                <div class="flex items-center text-primary font-semibold">
+                    <i class="fas fa-phone-alt mr-2"></i>
+                    <span>+234 800 123 4567</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="container mx-auto px-4 mt-6">
+        <div class="relative bg-emerald-900 rounded-3xl overflow-hidden min-h-[400px] flex items-center">
+            <div class="absolute inset-0 z-0 opacity-40">
+                <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=1974" alt="Hero Background" class="w-full h-full object-cover">
+            </div>
+            <div class="relative z-10 px-8 md:px-16 w-full md:w-2/3 lg:w-1/2">
+                <span class="inline-block bg-accent text-white px-4 py-1 rounded-full text-sm font-bold mb-4">FRESH & HEALTHY</span>
+                <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-6">
+                    Fresh Groceries Delivered To Your <span class="text-primary">Doorstep</span>
+                </h1>
+                <p class="text-gray-100 text-lg mb-8 max-w-lg">
+                    Shop from over 5,000+ high-quality products from your favorite local and international brands. Same-day delivery across Lagos.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="products.html" class="bg-primary hover:bg-secondary text-white px-8 py-4 rounded-xl font-bold text-center transition shadow-lg shadow-emerald-900/40">Shop Now</a>
+                    <a href="subscriptions.html" class="bg-white hover:bg-gray-100 text-primary px-8 py-4 rounded-xl font-bold text-center transition">View Subscriptions</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Categories -->
+    <section class="container mx-auto px-4 mt-16">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="text-2xl font-bold text-gray-900">Featured Categories</h2>
+            <a href="products.html" class="text-primary font-semibold hover:underline">View All</a>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+            <!-- Category Item -->
+            <a href="products.html" class="bg-white p-6 rounded-2xl text-center shadow-sm hover:shadow-md transition group border border-gray-100">
+                <div class="bg-emerald-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary transition duration-300">
+                    <i class="fas fa-apple-whole text-2xl text-primary group-hover:text-white"></i>
+                </div>
+                <h3 class="font-semibold text-sm">Fruits</h3>
+            </a>
+            <a href="products.html" class="bg-white p-6 rounded-2xl text-center shadow-sm hover:shadow-md transition group border border-gray-100">
+                <div class="bg-emerald-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary transition duration-300">
+                    <i class="fas fa-carrot text-2xl text-primary group-hover:text-white"></i>
+                </div>
+                <h3 class="font-semibold text-sm">Vegetables</h3>
+            </a>
+            <a href="products.html" class="bg-white p-6 rounded-2xl text-center shadow-sm hover:shadow-md transition group border border-gray-100">
+                <div class="bg-emerald-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary transition duration-300">
+                    <i class="fas fa-cow text-2xl text-primary group-hover:text-white"></i>
+                </div>
+                <h3 class="font-semibold text-sm">Dairy</h3>
+            </a>
+            <a href="products.html" class="bg-white p-6 rounded-2xl text-center shadow-sm hover:shadow-md transition group border border-gray-100">
+                <div class="bg-emerald-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary transition duration-300">
+                    <i class="fas fa-drumstick-bite text-2xl text-primary group-hover:text-white"></i>
+                </div>
+                <h3 class="font-semibold text-sm">Meat</h3>
+            </a>
+            <a href="products.html" class="bg-white p-6 rounded-2xl text-center shadow-sm hover:shadow-md transition group border border-gray-100">
+                <div class="bg-emerald-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary transition duration-300">
+                    <i class="fas fa-bread-slice text-2xl text-primary group-hover:text-white"></i>
+                </div>
+                <h3 class="font-semibold text-sm">Bakery</h3>
+            </a>
+            <a href="products.html" class="bg-white p-6 rounded-2xl text-center shadow-sm hover:shadow-md transition group border border-gray-100">
+                <div class="bg-emerald-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary transition duration-300">
+                    <i class="fas fa-wine-glass text-2xl text-primary group-hover:text-white"></i>
+                </div>
+                <h3 class="font-semibold text-sm">Beverages</h3>
+            </a>
+            <a href="products.html" class="bg-white p-6 rounded-2xl text-center shadow-sm hover:shadow-md transition group border border-gray-100">
+                <div class="bg-emerald-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary transition duration-300">
+                    <i class="fas fa-cookie-bite text-2xl text-primary group-hover:text-white"></i>
+                </div>
+                <h3 class="font-semibold text-sm">Snacks</h3>
+            </a>
+        </div>
+    </section>
+
+    <!-- Popular Products -->
+    <section class="container mx-auto px-4 mt-16">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="text-2xl font-bold text-gray-900">Popular Products</h2>
+            <div class="flex space-x-2">
+                <button class="bg-white border border-gray-200 p-2 rounded-lg hover:bg-primary hover:text-white transition">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="bg-white border border-gray-200 p-2 rounded-lg hover:bg-primary hover:text-white transition">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+            <!-- Product Card -->
+            <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-xl transition relative group">
+                <span class="absolute top-4 left-4 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-md z-10">-15%</span>
+                <button class="absolute top-4 right-4 text-gray-300 hover:text-red-500 transition z-10">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <a href="product-details.html" class="block mb-4 overflow-hidden rounded-xl h-48">
+                    <img src="https://images.unsplash.com/photo-1550989460-0adf9ea622e2?auto=format&fit=crop&q=80&w=500" alt="Fresh Tomatoes" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                </a>
+                <div class="space-y-2">
+                    <span class="text-xs text-gray-500 font-medium uppercase tracking-wider">Vegetables</span>
+                    <a href="product-details.html" class="block font-bold text-gray-900 hover:text-primary transition">Fresh Roma Tomatoes (1kg)</a>
+                    <div class="flex items-center text-accent text-xs">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span class="text-gray-400 ml-1">(45)</span>
+                    </div>
+                    <div class="flex items-center justify-between mt-4">
+                        <div>
+                            <span class="text-xl font-bold text-gray-900">₦2,500</span>
+                            <span class="text-sm text-gray-400 line-through ml-2">₦3,000</span>
+                        </div>
+                        <button class="bg-primary text-white h-10 w-10 rounded-xl flex items-center justify-center hover:bg-secondary transition shadow-lg shadow-emerald-500/30">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- More Product Cards (Simplified for implementation) -->
+            <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-xl transition relative group">
+                <button class="absolute top-4 right-4 text-gray-300 hover:text-red-500 transition z-10">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <a href="product-details.html" class="block mb-4 overflow-hidden rounded-xl h-48">
+                    <img src="https://images.unsplash.com/photo-1523472721958-978152f4d69b?auto=format&fit=crop&q=80&w=500" alt="Basmati Rice" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                </a>
+                <div class="space-y-2">
+                    <span class="text-xs text-gray-500 font-medium uppercase tracking-wider">Grains</span>
+                    <a href="product-details.html" class="block font-bold text-gray-900 hover:text-primary transition">Golden Basmati Rice (5kg)</a>
+                    <div class="flex items-center text-accent text-xs">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span class="text-gray-400 ml-1">(120)</span>
+                    </div>
+                    <div class="flex items-center justify-between mt-4">
+                        <div>
+                            <span class="text-xl font-bold text-gray-900">₦12,500</span>
+                        </div>
+                        <button class="bg-primary text-white h-10 w-10 rounded-xl flex items-center justify-center hover:bg-secondary transition shadow-lg shadow-emerald-500/30">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-xl transition relative group">
+                <span class="absolute top-4 left-4 bg-primary text-white text-[10px] font-bold px-2 py-1 rounded-md z-10">NEW</span>
+                <button class="absolute top-4 right-4 text-gray-300 hover:text-red-500 transition z-10">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <a href="product-details.html" class="block mb-4 overflow-hidden rounded-xl h-48">
+                    <img src="https://images.unsplash.com/photo-1563227812-0ea4c22e6cc8?auto=format&fit=crop&q=80&w=500" alt="Honey" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                </a>
+                <div class="space-y-2">
+                    <span class="text-xs text-gray-500 font-medium uppercase tracking-wider">Pantry</span>
+                    <a href="product-details.html" class="block font-bold text-gray-900 hover:text-primary transition">Pure Organic Honey (500ml)</a>
+                    <div class="flex items-center text-accent text-xs">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star text-gray-300"></i>
+                        <span class="text-gray-400 ml-1">(18)</span>
+                    </div>
+                    <div class="flex items-center justify-between mt-4">
+                        <div>
+                            <span class="text-xl font-bold text-gray-900">₦4,200</span>
+                        </div>
+                        <button class="bg-primary text-white h-10 w-10 rounded-xl flex items-center justify-center hover:bg-secondary transition shadow-lg shadow-emerald-500/30">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-xl transition relative group">
+                <button class="absolute top-4 right-4 text-gray-300 hover:text-red-500 transition z-10">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <a href="product-details.html" class="block mb-4 overflow-hidden rounded-xl h-48">
+                    <img src="https://images.unsplash.com/photo-1550583724-125581cc2586?auto=format&fit=crop&q=80&w=500" alt="Milk" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                </a>
+                <div class="space-y-2">
+                    <span class="text-xs text-gray-500 font-medium uppercase tracking-wider">Dairy</span>
+                    <a href="product-details.html" class="block font-bold text-gray-900 hover:text-primary transition">Fresh Whole Milk (1L)</a>
+                    <div class="flex items-center text-accent text-xs">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span class="text-gray-400 ml-1">(256)</span>
+                    </div>
+                    <div class="flex items-center justify-between mt-4">
+                        <div>
+                            <span class="text-xl font-bold text-gray-900">₦1,800</span>
+                        </div>
+                        <button class="bg-primary text-white h-10 w-10 rounded-xl flex items-center justify-center hover:bg-secondary transition shadow-lg shadow-emerald-500/30">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-xl transition relative group">
+                <span class="absolute top-4 left-4 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-md z-10">-10%</span>
+                <button class="absolute top-4 right-4 text-gray-300 hover:text-red-500 transition z-10">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <a href="product-details.html" class="block mb-4 overflow-hidden rounded-xl h-48">
+                    <img src="https://images.unsplash.com/photo-1608667508764-33cf0726b13a?auto=format&fit=crop&q=80&w=500" alt="Eggs" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                </a>
+                <div class="space-y-2">
+                    <span class="text-xs text-gray-500 font-medium uppercase tracking-wider">Dairy</span>
+                    <a href="product-details.html" class="block font-bold text-gray-900 hover:text-primary transition">Large Brown Eggs (30pcs)</a>
+                    <div class="flex items-center text-accent text-xs">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span class="text-gray-400 ml-1">(89)</span>
+                    </div>
+                    <div class="flex items-center justify-between mt-4">
+                        <div>
+                            <span class="text-xl font-bold text-gray-900">₦3,600</span>
+                            <span class="text-sm text-gray-400 line-through ml-2">₦4,000</span>
+                        </div>
+                        <button class="bg-primary text-white h-10 w-10 rounded-xl flex items-center justify-center hover:bg-secondary transition shadow-lg shadow-emerald-500/30">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subscription Promo -->
+    <section class="container mx-auto px-4 mt-20">
+        <div class="bg-emerald-50 rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between border border-emerald-100">
+            <div class="md:w-1/2 mb-8 md:mb-0">
+                <span class="text-primary font-bold tracking-widest text-sm uppercase">Monthly Savings</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-2 mb-6 leading-tight">
+                    Subscribe to Our Monthly <span class="text-primary">Food Basket</span> & Save 20%
+                </h2>
+                <p class="text-gray-600 text-lg mb-8">
+                    Never run out of essentials. Choose from our Starter, Family, or Premium baskets and get fresh groceries delivered every month automatically.
+                </p>
+                <div class="space-y-4 mb-8">
+                    <div class="flex items-center space-x-3">
+                        <div class="bg-primary text-white rounded-full p-1">
+                            <i class="fas fa-check text-[10px]"></i>
+                        </div>
+                        <span class="text-gray-700 font-medium">Free Delivery for all subscribers</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <div class="bg-primary text-white rounded-full p-1">
+                            <i class="fas fa-check text-[10px]"></i>
+                        </div>
+                        <span class="text-gray-700 font-medium">Priority customer support</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <div class="bg-primary text-white rounded-full p-1">
+                            <i class="fas fa-check text-[10px]"></i>
+                        </div>
+                        <span class="text-gray-700 font-medium">Customizable basket items</span>
+                    </div>
+                </div>
+                <a href="subscriptions.html" class="inline-block bg-primary hover:bg-secondary text-white px-10 py-4 rounded-xl font-bold transition shadow-lg shadow-emerald-500/20">Explore Plans</a>
+            </div>
+            <div class="md:w-5/12">
+                <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=800" alt="Food Basket" class="rounded-2xl shadow-2xl rotate-3">
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="container mx-auto px-4 mt-20 mb-20">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+            <h2 class="text-3xl font-extrabold text-gray-900 mb-4">Why Choose Supermarket@Home?</h2>
+            <p class="text-gray-600">We are committed to providing you with the freshest groceries and the best shopping experience possible.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="text-center p-8 bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition">
+                <div class="bg-orange-50 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-shipping-fast text-3xl text-accent"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4">Lightning Fast Delivery</h3>
+                <p class="text-gray-600 leading-relaxed">Get your groceries delivered within 2 hours of ordering. We value your time as much as you do.</p>
+            </div>
+            <div class="text-center p-8 bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition">
+                <div class="bg-emerald-50 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-leaf text-3xl text-primary"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4">Farm Fresh Quality</h3>
+                <p class="text-gray-600 leading-relaxed">We source directly from local farms to ensure you get the freshest produce at the best prices.</p>
+            </div>
+            <div class="text-center p-8 bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition">
+                <div class="bg-blue-50 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-shield-alt text-3xl text-blue-500"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4">Secure Payments</h3>
+                <p class="text-gray-600 leading-relaxed">Pay with confidence using our secure payment gateway or choose cash on delivery.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="bg-gray-100 py-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl font-extrabold text-gray-900 mb-4">What Our Customers Say</h2>
+                <div class="flex justify-center space-x-1 text-accent mb-4">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="text-gray-600">Join over 10,000+ happy families who trust us for their weekly grocery needs.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-3xl shadow-sm italic relative">
+                    <i class="fas fa-quote-left text-primary/10 text-6xl absolute top-4 left-4"></i>
+                    <p class="text-gray-600 relative z-10 mb-6">"Supermarket@Home has made my life so much easier. As a working mom, I don't have time to go to the market. Their delivery is always on time!"</p>
+                    <div class="flex items-center space-x-4">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100" class="w-12 h-12 rounded-full object-cover" alt="User">
+                        <div>
+                            <h4 class="font-bold text-gray-900">Chioma Okeke</h4>
+                            <p class="text-xs text-gray-500">Lagos Island</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm italic relative">
+                    <i class="fas fa-quote-left text-primary/10 text-6xl absolute top-4 left-4"></i>
+                    <p class="text-gray-600 relative z-10 mb-6">"The quality of the vegetables is amazing. They look even better than the ones I pick myself at the market. Highly recommended!"</p>
+                    <div class="flex items-center space-x-4">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100" class="w-12 h-12 rounded-full object-cover" alt="User">
+                        <div>
+                            <h4 class="font-bold text-gray-900">Olawale Johnson</h4>
+                            <p class="text-xs text-gray-500">Ikeja, Lagos</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm italic relative">
+                    <i class="fas fa-quote-left text-primary/10 text-6xl absolute top-4 left-4"></i>
+                    <p class="text-gray-600 relative z-10 mb-6">"I love the subscription food basket. It's so convenient and I actually save money compared to when I used to shop randomly."</p>
+                    <div class="flex items-center space-x-4">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=100" class="w-12 h-12 rounded-full object-cover" alt="User">
+                        <div>
+                            <h4 class="font-bold text-gray-900">Amina Yusuf</h4>
+                            <p class="text-xs text-gray-500">Abuja</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="container mx-auto px-4 mt-20 mb-20">
+        <div class="bg-primary rounded-3xl p-10 md:p-16 text-center text-white relative overflow-hidden">
+            <div class="absolute -top-10 -left-10 w-40 h-40 bg-white opacity-5 rounded-full"></div>
+            <div class="absolute -bottom-10 -right-10 w-60 h-60 bg-white opacity-5 rounded-full"></div>
+            
+            <div class="max-w-2xl mx-auto relative z-10">
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-4">Don't Miss Our Weekly Deals!</h2>
+                <p class="text-emerald-50 mb-10 text-lg text-emerald-100">Subscribe to our newsletter and get ₦2,000 off your first order.</p>
+                <form class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 max-w-lg mx-auto">
+                    <input type="email" placeholder="Your email address" class="flex-1 px-6 py-4 rounded-xl text-gray-800 focus:outline-none focus:ring-4 focus:ring-emerald-400">
+                    <button type="submit" class="bg-accent hover:bg-orange-600 text-white px-8 py-4 rounded-xl font-bold transition shadow-lg">Subscribe</button>
+                </form>
+                <p class="mt-6 text-sm text-emerald-100">We respect your privacy. Unsubscribe at any time.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 pt-20 pb-10">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <!-- Company Info -->
+                <div class="space-y-6">
+                    <a href="index.html" class="flex items-center space-x-2">
+                        <div class="bg-primary p-2 rounded-lg">
+                            <i class="fas fa-shopping-basket text-white text-xl"></i>
+                        </div>
+                        <span class="text-2xl font-bold text-white tracking-tight">Supermarket<span class="text-primary">@Home</span></span>
+                    </a>
+                    <p class="leading-relaxed">
+                        Fresh Groceries Delivered To Your Doorstep. We source the best quality products for you and your family.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-8">Quick Links</h4>
+                    <ul class="space-y-4">
+                        <li><a href="about.html" class="hover:text-primary transition">About Us</a></li>
+                        <li><a href="products.html" class="hover:text-primary transition">Shop Products</a></li>
+                        <li><a href="subscriptions.html" class="hover:text-primary transition">Food Baskets</a></li>
+                        <li><a href="faq.html" class="hover:text-primary transition">FAQs</a></li>
+                        <li><a href="contact.html" class="hover:text-primary transition">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Customer Service -->
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-8">Account</h4>
+                    <ul class="space-y-4">
+                        <li><a href="dashboard.html" class="hover:text-primary transition">My Account</a></li>
+                        <li><a href="orders.html" class="hover:text-primary transition">Order History</a></li>
+                        <li><a href="wishlist.html" class="hover:text-primary transition">Wishlist</a></li>
+                        <li><a href="profile.html" class="hover:text-primary transition">Profile Settings</a></li>
+                        <li><a href="login.html" class="hover:text-primary transition">Login / Register</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-8">Contact Us</h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-start space-x-3">
+                            <i class="fas fa-map-marker-alt mt-1 text-primary"></i>
+                            <span>123 Victoria Island, Lagos, Nigeria</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-phone-alt text-primary"></i>
+                            <span>+234 800 123 4567</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-envelope text-primary"></i>
+                            <span>support@supermarkathome.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-10 flex flex-col md:flex-row items-center justify-between">
+                <p>&copy; 2026 Supermarket@Home. All rights reserved.</p>
+                <div class="flex items-center space-x-6 mt-6 md:mt-0">
+                    <i class="fab fa-cc-visa text-3xl"></i>
+                    <i class="fab fa-cc-mastercard text-3xl"></i>
+                    <i class="fab fa-cc-apple-pay text-3xl"></i>
+                    <i class="fab fa-cc-amazon-pay text-3xl"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

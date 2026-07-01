@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Corporate Support - Supermarket@Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#10B981',
+                        secondary: '#047857',
+                        accent: '#F97316',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="index.html" class="flex items-center space-x-2">
+                <div class="bg-primary p-2 rounded-lg"><i class="fas fa-shopping-basket text-white text-xl"></i></div>
+                <span class="text-2xl font-bold">Supermarket<span class="text-primary">@Home</span></span>
+            </a>
+            <div class="flex space-x-4 text-sm font-semibold text-gray-600">
+                <a href="index.html" class="hover:text-primary">Home</a>
+                <a href="faq.html" class="hover:text-primary">FAQs Help</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-12 max-w-5xl">
+        <div class="text-center max-w-xl mx-auto mb-12">
+            <h1 class="text-3xl font-extrabold text-gray-900 mb-2">Contact Us</h1>
+            <p class="text-gray-500 text-sm">Have feedback or urgent fulfillment queries? Get in touch with our operations center immediately.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Left Contact Cards Details Panel Column -->
+            <div class="space-y-4">
+                <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-start space-x-4">
+                    <div class="bg-emerald-50 text-primary p-3 rounded-xl"><i class="fas fa-phone"></i></div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 text-sm">Customer Helpline</h4>
+                        <p class="text-xs text-gray-500 mt-1">+234 800 123 4567</p>
+                        <p class="text-[10px] text-gray-400">Available 24/7 Priority support</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-start space-x-4">
+                    <div class="bg-emerald-50 text-primary p-3 rounded-xl"><i class="far fa-envelope"></i></div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 text-sm">Operations Email</h4>
+                        <p class="text-xs text-gray-500 mt-1">support@supermarkathome.com</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-start space-x-4">
+                    <div class="bg-emerald-50 text-primary p-3 rounded-xl"><i class="fas fa-location-dot"></i></div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 text-sm">Main Sort Facility HQ</h4>
+                        <p class="text-xs text-gray-500 mt-1 leading-relaxed">123 Victoria Island commercial park, Lagos State, Nigeria.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Interactive Form & Map placeholders Columns -->
+            <div class="lg:col-span-2 space-y-6">
+                <div class="bg-white p-6 md:p-8 rounded-3xl border border-gray-100 shadow-sm">
+                    <h3 class="font-bold text-lg text-gray-900 mb-6">Send Us a Swift Message</h3>
+                    <form class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="text" placeholder="Your Full Name" class="w-full p-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+                            <input type="email" placeholder="Your Email Address" class="w-full p-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+                        </div>
+                        <input type="text" placeholder="Subject Topic" class="w-full p-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+                        <textarea rows="4" placeholder="Type out description details here..." class="w-full p-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
+                        <button type="button" class="bg-primary hover:bg-secondary text-white font-bold px-6 py-3 rounded-xl transition text-sm">Send Ticket</button>
+                    </form>
+                </div>
+
+                <!-- Map Placeholder component box layout -->
+                <div class="bg-gray-100 border border-gray-200 rounded-3xl h-48 flex items-center justify-center relative overflow-hidden text-gray-400">
+                    <div class="text-center font-semibold text-xs">
+                        <i class="fas fa-map-marked-alt text-2xl text-gray-300 block mb-2"></i>Map Visualization Placeholder Area
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-900 text-gray-400 py-6 text-center mt-20">
+        <p>&copy; 2026 Supermarket@Home. Communications Support Terminal Layout.</p>
+    </footer>
+</body>
+</html>

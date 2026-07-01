@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Management - Admin - Supermarket@Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#10B981',
+                        secondary: '#047857',
+                        accent: '#F97316',
+                        dark: '#1F2937'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="min-h-screen flex flex-col md:flex-row">
+        <!-- Sidebar -->
+        <aside class="w-full md:w-64 bg-dark text-gray-400 flex flex-col justify-between p-5 border-r border-gray-800 md:sticky md:top-0 md:h-screen z-40">
+            <div class="space-y-8">
+                <div class="flex items-center space-x-2 px-2">
+                    <div class="bg-primary p-2 rounded-lg text-white"><i class="fas fa-sliders text-lg"></i></div>
+                    <span class="text-2xl font-bold text-white tracking-tight">Admin<span class="text-primary">@Home</span></span>
+                </div>
+                <nav class="space-y-1.5 flex flex-col">
+                    <a href="admin-dashboard.html" class="flex items-center space-x-3 hover:bg-gray-800 hover:text-white p-3 rounded-xl font-medium transition">
+                        <i class="fas fa-chart-pie w-5 text-center"></i><span>Dashboard</span>
+                    </a>
+                    <a href="admin-orders.html" class="flex items-center space-x-3 hover:bg-gray-800 hover:text-white p-3 rounded-xl font-medium transition">
+                        <i class="fas fa-cart-shopping w-5 text-center"></i><span>Orders Control</span>
+                    </a>
+                    <a href="admin-products.html" class="flex items-center space-x-3 hover:bg-gray-800 hover:text-white p-3 rounded-xl font-medium transition">
+                        <i class="fas fa-boxes-stacked w-5 text-center"></i><span>Inventory Catalog</span>
+                    </a>
+                    <a href="admin-subscriptions.html" class="flex items-center space-x-3 bg-primary text-white p-3 rounded-xl font-bold transition">
+                        <i class="fas fa-basket-shopping w-5 text-center"></i><span>Food Baskets</span>
+                    </a>
+                    <a href="admin-customers.html" class="flex items-center space-x-3 hover:bg-gray-800 hover:text-white p-3 rounded-xl font-semibold transition">
+                        <i class="fas fa-users w-5 text-center"></i><span>Customers DB</span>
+                    </a>
+                </nav>
+            </div>
+            <div class="border-t border-gray-800 pt-4 px-2 mt-6 flex items-center justify-between text-xs font-semibold">
+                <div class="flex items-center space-x-2">
+                    <div class="h-7 w-7 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold">A</div>
+                    <span class="text-gray-300">Manager Terminal</span>
+                </div>
+                <a href="index.html" class="text-red-400 hover:text-red-500 transition"><i class="fas fa-power-off text-sm"></i></a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col min-w-0">
+            <header class="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-6 sticky top-0 z-30">
+                <div class="text-sm font-semibold text-gray-500">Subscription Management</div>
+                <div class="flex items-center space-x-4">
+                    <button class="bg-primary text-white px-4 py-2 rounded-lg text-xs font-bold hover:bg-secondary transition shadow-lg shadow-emerald-500/20">
+                        <i class="fas fa-download mr-2"></i>Subscription Report
+                    </button>
+                </div>
+            </header>
+
+            <main class="p-6">
+                <!-- Summary bar -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+                    <div class="bg-white p-4 rounded-xl border border-gray-200 flex items-center space-x-4">
+                        <div class="bg-blue-50 text-blue-500 p-3 rounded-lg"><i class="fas fa-users"></i></div>
+                        <div>
+                            <div class="text-xs text-gray-400 font-bold uppercase">Total Subs</div>
+                            <div class="text-xl font-bold">428</div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-gray-200 flex items-center space-x-4">
+                        <div class="bg-green-50 text-emerald-500 p-3 rounded-lg"><i class="fas fa-shopping-basket"></i></div>
+                        <div>
+                            <div class="text-xs text-gray-400 font-bold uppercase">Family Baskets</div>
+                            <div class="text-xl font-bold">254</div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-gray-200 flex items-center space-x-4">
+                        <div class="bg-orange-50 text-orange-500 p-3 rounded-lg"><i class="fas fa-leaf"></i></div>
+                        <div>
+                            <div class="text-xs text-gray-400 font-bold uppercase">Starter Baskets</div>
+                            <div class="text-xl font-bold">110</div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-gray-200 flex items-center space-x-4">
+                        <div class="bg-red-50 text-red-500 p-3 rounded-lg"><i class="fas fa-crown"></i></div>
+                        <div>
+                            <div class="text-xs text-gray-400 font-bold uppercase">Premium Baskets</div>
+                            <div class="text-xl font-bold">64</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subscriptions Table -->
+                <div class="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
+                    <table class="w-full text-left">
+                        <thead class="bg-gray-50 border-b border-gray-100">
+                            <tr class="text-gray-500 font-bold text-xs uppercase tracking-widest">
+                                <th class="p-5">Subscriber</th>
+                                <th class="p-5">Plan</th>
+                                <th class="p-5">Next Delivery</th>
+                                <th class="p-5">Amount</th>
+                                <th class="p-5">Status</th>
+                                <th class="p-5 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-50">
+                            <!-- Subscriber 1 -->
+                            <tr class="hover:bg-gray-50/50 transition">
+                                <td class="p-5">
+                                    <div class="font-bold text-gray-900">Tunde Faro</div>
+                                    <div class="text-xs text-gray-400">ID: #SUB-1029</div>
+                                </td>
+                                <td class="p-5">
+                                    <span class="text-xs px-2 py-1 bg-green-50 text-emerald-600 rounded-lg font-bold">Family Basket</span>
+                                </td>
+                                <td class="p-5 text-sm text-gray-600">25 June, 2026</td>
+                                <td class="p-5 text-sm font-bold text-gray-900">₦70,000</td>
+                                <td class="p-5">
+                                    <span class="bg-green-100 text-green-700 text-[10px] font-black px-2.5 py-1 rounded-full uppercase">Active</span>
+                                </td>
+                                <td class="p-5 text-right">
+                                    <button class="text-gray-400 hover:text-primary transition mx-2"><i class="fas fa-eye"></i></button>
+                                    <button class="text-gray-400 hover:text-red-500 transition"><i class="fas fa-pause-circle"></i></button>
+                                </td>
+                            </tr>
+                            <!-- Subscriber 2 -->
+                            <tr class="hover:bg-gray-50/50 transition">
+                                <td class="p-5">
+                                    <div class="font-bold text-gray-900">Bose Adewale</div>
+                                    <div class="text-xs text-gray-400">ID: #SUB-1035</div>
+                                </td>
+                                <td class="p-5">
+                                    <span class="text-xs px-2 py-1 bg-orange-50 text-orange-600 rounded-lg font-bold">Starter Basket</span>
+                                </td>
+                                <td class="p-5 text-sm text-gray-600">22 June, 2026</td>
+                                <td class="p-5 text-sm font-bold text-gray-900">₦25,000</td>
+                                <td class="p-5">
+                                    <span class="bg-green-100 text-green-700 text-[10px] font-black px-2.5 py-1 rounded-full uppercase">Active</span>
+                                </td>
+                                <td class="p-5 text-right">
+                                    <button class="text-gray-400 hover:text-primary transition mx-2"><i class="fas fa-eye"></i></button>
+                                    <button class="text-gray-400 hover:text-red-500 transition"><i class="fas fa-pause-circle"></i></button>
+                                </td>
+                            </tr>
+                            <!-- Subscriber 3 -->
+                            <tr class="hover:bg-gray-50/50 transition">
+                                <td class="p-5">
+                                    <div class="font-bold text-gray-900">Musa Sani</div>
+                                    <div class="text-xs text-gray-400">ID: #SUB-1044</div>
+                                </td>
+                                <td class="p-5">
+                                    <span class="text-xs px-2 py-1 bg-red-50 text-red-600 rounded-lg font-bold">Premium Basket</span>
+                                </td>
+                                <td class="p-5 text-sm text-gray-600">30 June, 2026</td>
+                                <td class="p-5 text-sm font-bold text-gray-900">₦150,000</td>
+                                <td class="p-5">
+                                    <span class="bg-gray-100 text-gray-400 text-[10px] font-black px-2.5 py-1 rounded-full uppercase">Paused</span>
+                                </td>
+                                <td class="p-5 text-right">
+                                    <button class="text-gray-400 hover:text-primary transition mx-2"><i class="fas fa-eye"></i></button>
+                                    <button class="text-gray-400 hover:text-green-500 transition"><i class="fas fa-play-circle"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

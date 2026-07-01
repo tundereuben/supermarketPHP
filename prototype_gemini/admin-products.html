@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management - Admin - Supermarket@Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#10B981',
+                        secondary: '#047857',
+                        accent: '#F97316',
+                        dark: '#1F2937'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="min-h-screen flex flex-col md:flex-row">
+        <!-- Sidebar -->
+        <aside class="w-full md:w-64 bg-dark text-gray-400 flex flex-col justify-between p-5 border-r border-gray-800 md:sticky md:top-0 md:h-screen z-40">
+            <div class="space-y-8">
+                <div class="flex items-center space-x-2 px-2">
+                    <div class="bg-primary p-2 rounded-lg text-white"><i class="fas fa-sliders text-lg"></i></div>
+                    <span class="text-2xl font-bold text-white tracking-tight">Admin<span class="text-primary">@Home</span></span>
+                </div>
+                <nav class="space-y-1.5 flex flex-col">
+                    <a href="admin-dashboard.html" class="flex items-center space-x-3 hover:bg-gray-800 hover:text-white p-3 rounded-xl font-medium transition">
+                        <i class="fas fa-chart-pie w-5 text-center"></i><span>Dashboard</span>
+                    </a>
+                    <a href="admin-orders.html" class="flex items-center space-x-3 hover:bg-gray-800 hover:text-white p-3 rounded-xl font-medium transition">
+                        <i class="fas fa-cart-shopping w-5 text-center"></i><span>Orders Control</span>
+                    </a>
+                    <a href="admin-products.html" class="flex items-center space-x-3 bg-primary text-white p-3 rounded-xl font-bold transition">
+                        <i class="fas fa-boxes-stacked w-5 text-center"></i><span>Inventory Catalog</span>
+                    </a>
+                    <a href="admin-subscriptions.html" class="flex items-center space-x-3 hover:bg-gray-800 hover:text-white p-3 rounded-xl font-semibold transition">
+                        <i class="fas fa-basket-shopping w-5 text-center"></i><span>Food Baskets</span>
+                    </a>
+                    <a href="admin-customers.html" class="flex items-center space-x-3 hover:bg-gray-800 hover:text-white p-3 rounded-xl font-semibold transition">
+                        <i class="fas fa-users w-5 text-center"></i><span>Customers DB</span>
+                    </a>
+                </nav>
+            </div>
+            <div class="border-t border-gray-800 pt-4 px-2 mt-6 flex items-center justify-between text-xs font-semibold">
+                <div class="flex items-center space-x-2">
+                    <div class="h-7 w-7 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold">A</div>
+                    <span class="text-gray-300">Manager Terminal</span>
+                </div>
+                <a href="index.html" class="text-red-400 hover:text-red-500 transition"><i class="fas fa-power-off text-sm"></i></a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col min-w-0">
+            <header class="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-6 sticky top-0 z-30">
+                <div class="text-sm font-semibold text-gray-500">Inventory & Catalog</div>
+                <div class="flex items-center space-x-4">
+                    <button class="bg-primary text-white px-4 py-2 rounded-lg text-xs font-bold hover:bg-secondary transition shadow-lg shadow-emerald-500/20">
+                        <i class="fas fa-plus mr-2"></i>Add New Product
+                    </button>
+                </div>
+            </header>
+
+            <main class="p-6">
+                <!-- Filters, Search & Bulk Actions -->
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
+                    <div class="relative w-full md:max-w-xs">
+                        <input type="text" placeholder="Search products by name or SKU..." class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary">
+                        <i class="fas fa-search absolute left-4 top-3.5 text-gray-400"></i>
+                    </div>
+
+                    <div class="flex items-center space-x-4 w-full md:w-auto">
+                        <select class="bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+                            <option>Category: All</option>
+                            <option>Vegetables</option>
+                            <option>Grains</option>
+                            <option>Dairy</option>
+                            <option>Beverages</option>
+                        </select>
+                        <select class="bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+                            <option>Stock: All</option>
+                            <option>High Stock</option>
+                            <option>Low Stock</option>
+                            <option>Out of Stock</option>
+                        </select>
+                        <div class="relative">
+                            <button class="bg-gray-100 border border-gray-200 text-gray-600 px-4 py-2.5 rounded-xl text-sm font-bold hover:bg-gray-200 transition flex items-center space-x-2">
+                                <span>Bulk Actions</span>
+                                <i class="fas fa-chevron-down text-xs"></i>
+                            </button>
+                            <!-- Dropdown for Bulk Actions (conceptual) -->
+                            <div class="absolute right-0 mt-2 w-40 bg-white border border-gray-100 rounded-lg shadow-lg hidden">
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Delete Selected</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Update Stock</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Table -->
+                <div class="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
+                    <table class="w-full text-left">
+                        <thead class="bg-gray-50 border-b border-gray-100">
+                            <tr class="text-gray-500 font-bold text-xs uppercase tracking-widest">
+                                <th class="p-5 w-8"><input type="checkbox" class="rounded text-primary focus:ring-primary h-4 w-4"></th>
+                                <th class="p-5">Product Info</th>
+                                <th class="p-5">Category</th>
+                                <th class="p-5">Price</th>
+                                <th class="p-5">Stock Level</th>
+                                <th class="p-5 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-50">
+                            <!-- Product 1 -->
+                            <tr class="hover:bg-gray-50/50 transition">
+                                <td class="p-5"><input type="checkbox" class="rounded text-primary focus:ring-primary h-4 w-4"></td>
+                                <td class="p-5 flex items-center space-x-4">
+                                    <div class="w-12 h-12 rounded-lg bg-gray-100 overflow-hidden">
+                                        <img src="https://images.unsplash.com/photo-1550989460-0adf9ea622e2?auto=format&fit=crop&q=80&w=100" class="w-full h-full object-cover">
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-gray-900">Fresh Roma Tomatoes</div>
+                                        <div class="text-[10px] text-gray-400 uppercase">SKU: VG-RT-001</div>
+                                    </div>
+                                </td>
+                                <td class="p-5 text-sm text-gray-600">Vegetables</td>
+                                <td class="p-5 text-sm font-bold text-gray-900">₦2,500</td>
+                                <td class="p-5">
+                                    <div class="w-full max-w-[100px]">
+                                        <div class="flex justify-between text-[10px] font-bold mb-1">
+                                            <span>45 units</span>
+                                            <span class="text-gray-400">High</span>
+                                        </div>
+                                        <div class="w-full bg-gray-100 h-1.5 rounded-full">
+                                            <div class="bg-primary h-full w-[80%] rounded-full"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-5 text-right">
+                                    <button class="text-gray-400 hover:text-primary transition mx-2"><i class="fas fa-edit"></i></button>
+                                    <button class="text-gray-400 hover:text-red-500 transition"><i class="fas fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
+                            <!-- Product 2 -->
+                            <tr class="hover:bg-gray-50/50 transition">
+                                <td class="p-5"><input type="checkbox" class="rounded text-primary focus:ring-primary h-4 w-4"></td>
+                                <td class="p-5 flex items-center space-x-4">
+                                    <div class="w-12 h-12 rounded-lg bg-gray-100 overflow-hidden">
+                                        <img src="https://images.unsplash.com/photo-1523472721958-978152f4d69b?auto=format&fit=crop&q=80&w=100" class="w-full h-full object-cover">
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-gray-900">Basmati Rice (5kg)</div>
+                                        <div class="text-[10px] text-gray-400 uppercase">SKU: GR-BR-002</div>
+                                    </div>
+                                </td>
+                                <td class="p-5 text-sm text-gray-600">Grains</td>
+                                <td class="p-5 text-sm font-bold text-gray-900">₦12,500</td>
+                                <td class="p-5">
+                                    <div class="w-full max-w-[100px]">
+                                        <div class="flex justify-between text-[10px] font-bold mb-1 text-red-500">
+                                            <span>5 units</span>
+                                            <span>Low</span>
+                                        </div>
+                                        <div class="w-full bg-gray-100 h-1.5 rounded-full">
+                                            <div class="bg-red-500 h-full w-[15%] rounded-full"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-5 text-right">
+                                    <button class="text-gray-400 hover:text-primary transition mx-2"><i class="fas fa-edit"></i></button>
+                                    <button class="text-gray-400 hover:text-red-500 transition"><i class="fas fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>
