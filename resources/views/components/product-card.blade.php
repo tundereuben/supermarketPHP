@@ -9,6 +9,33 @@
                 Featured
             </div>
         @endif
+        
+        <!-- Wishlist Button (Auth Only) -->
+        @auth
+            <div class="absolute top-3 left-3">
+                @php
+                    $isWishlisted = \App\Models\Wishlist::where('user_id', auth()->id())
+                        ->where('product_id', $product->id)
+                        ->exists();
+                @endphp
+                @if($isWishlisted)
+                    <form action="{{ route('wishlist.remove', $isWishlisted ? \App\Models\Wishlist::where('user_id', auth()->id())->where('product_id', $product->id)->first()->id : '#') }}" method="POST" class="inline" onsubmit="event.preventDefault(); this.submit();">
+                        @csrf
+                        @method('POST')
+                        <button type="submit" class="bg-red-500 hover:bg-red-600 text-white p-2 rounded-full transition" title="Remove from wishlist">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </form>
+                @else
+                    <form action="{{ route('wishlist.add', $product->id) }}" method="POST" class="inline">
+                        @csrf
+                        <button type="submit" class="bg-white hover:bg-gray-100 text-gray-400 hover:text-red-500 p-2 rounded-full transition border border-gray-200" title="Add to wishlist">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </form>
+                @endif
+            </div>
+        @endauth
     </div>
 
     <!-- Details -->

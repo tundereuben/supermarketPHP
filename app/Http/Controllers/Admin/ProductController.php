@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -30,10 +31,17 @@ class ProductController extends Controller
             'description' => ['nullable', 'string'],
             'price' => ['required', 'numeric', 'min:0'],
             'unit' => ['required', 'string', 'max:50'],
+            'image' => ['nullable', 'image', 'max:2048'],
             'image_url' => ['nullable', 'url'],
             'stock' => ['required', 'integer', 'min:0'],
             'is_featured' => ['boolean'],
         ]);
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('products', 'public');
+            $validated['image_url'] = Storage::url($path);
+        }
 
         Product::create($validated);
 
@@ -55,10 +63,23 @@ class ProductController extends Controller
             'description' => ['nullable', 'string'],
             'price' => ['required', 'numeric', 'min:0'],
             'unit' => ['required', 'string', 'max:50'],
+            'image' => ['nullable', 'image', 'max:2048'],
             'image_url' => ['nullable', 'url'],
             'stock' => ['required', 'integer', 'min:0'],
             'is_featured' => ['boolean'],
         ]);
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            // Delete old image if it exists and is a local file
+            if ($product->image_url && str_contains($product->image_url, '/storage/')) {
+                $oldPath = str_replace('/storage/', '', $product->image_url);
+                Storage::disk('public')->delete($oldPath);
+            }
+
+            $path = $request->file('image')->store('products', 'public');
+            $validated['image_url'] = Storage::url($path);
+        }
 
         $product->update($validated);
 
@@ -67,6 +88,12 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
+        // Delete image if it exists and is a local file
+        if ($product->image_url && str_contains($product->image_url, '/storage/')) {
+            $path = str_replace('/storage/', '', $product->image_url);
+            Storage::disk('public')->delete($path);
+        }
+
         $product->delete();
 
         return redirect()->route('admin.products.index')->with('success', 'Product deleted successfully!');

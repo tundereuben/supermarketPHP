@@ -54,6 +54,9 @@ class OrderController extends Controller
             'phone' => ['required', 'string', 'max:30'],
             'address' => ['required', 'string', 'max:500'],
             'payment_method' => ['required', 'string', 'in:cash,card'],
+            'card_number' => ['nullable', 'required_if:payment_method,card', 'regex:/^\d{16}$/'],
+            'card_expiry' => ['nullable', 'required_if:payment_method,card', 'regex:/^\d{2}\/\d{2}$/'],
+            'card_cvv' => ['nullable', 'required_if:payment_method,card', 'regex:/^\d{3,4}$/'],
         ]);
 
         $products = Product::whereIn('id', array_keys($cartData))->get()->keyBy('id');
@@ -68,21 +71,36 @@ class OrderController extends Controller
             }
         }
 
+        // Process payment if card payment
+        $paymentStatus = 'pending';
+        if ($validated['payment_method'] === 'card') {
+            // Mock payment processing
+            $paymentResult = $this->processCardPayment($validated, $subtotal);
+            
+            if (!$paymentResult['success']) {
+                return back()
+                    ->withInput()
+                    ->with('error', $paymentResult['message']);
+            }
+            
+            $paymentStatus = 'paid';
+        }
+
         try {
             DB::beginTransaction();
 
-            // Create order
+            // Create order with payment status
             $order = Order::create([
                 'user_id' => auth()->id(),
                 'order_number' => 'ORD-' . date('Y') . '-' . str_pad(Order::count() + 1, 4, '0', STR_PAD_LEFT),
                 'subtotal' => $subtotal,
                 'shipping_fee' => 0,
                 'total' => $subtotal,
-                'status' => 'pending',
+                'status' => $paymentStatus === 'paid' ? 'processing' : 'pending',
                 'shipping_address' => $validated['address'],
                 'phone' => $validated['phone'],
                 'payment_method' => $validated['payment_method'],
-                'payment_status' => 'pending',
+                'payment_status' => $paymentStatus,
             ]);
 
             // Create order items
@@ -105,6 +123,42 @@ class OrderController extends Controller
         // Clear cart
         $request->session()->forget('cart');
 
-        return redirect()->route('orders.index')->with('success', 'Order created successfully! Order #' . $order->order_number);
+        return redirect()->route('checkout.confirmation', $order->id)->with('success', 'Order created successfully!');
+    }
+
+    /**
+     * Mock card payment processing
+     */
+    private function processCardPayment($cardData, $amount)
+    {
+        // Reject blocked test cards
+        if (in_array($cardData['card_number'], ['0000000000000000', '9999999999999999'])) {
+            return [
+                'success' => false,
+                'message' => 'Card declined. Please try another card.',
+            ];
+        }
+
+        // Mock successful payment
+        return [
+            'success' => true,
+            'message' => 'Payment processed successfully',
+            'transaction_id' => 'TXN-' . time() . '-' . rand(1000, 9999),
+        ];
+    }
+
+    public function confirmation(Order $order)
+    {
+        // Ensure user can only view their own order confirmation
+        if ($order->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized');
+        }
+
+        $items = $order->items()->with('product')->get();
+
+        return view('checkout.confirmation', [
+            'order' => $order,
+            'items' => $items,
+        ]);
     }
 }

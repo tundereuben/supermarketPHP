@@ -53,10 +53,4 @@ class CustomerController extends Controller
     {
         return view('orders.index', ['orders' => Auth::user()->orders()->latest()->paginate(10)]);
     }
-
-    public function wishlist()
-    {
-        $wishlist = Auth::user()->wishlists()->with('product')->paginate(9);
-        return view('wishlist.index', ['products' => $wishlist]);
-    }
 }
