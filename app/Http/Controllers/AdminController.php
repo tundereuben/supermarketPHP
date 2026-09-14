@@ -21,13 +21,13 @@ class AdminController extends Controller
 
         return view('admin.dashboard', [
             'metrics' => $metrics,
-            'orders' => Order::latest()->take(5)->get(),
+            'orders' => Order::with('user', 'items')->latest()->take(5)->get(),
         ]);
     }
 
     public function orders()
     {
-        return view('admin.orders.index', ['orders' => Order::with('user')->latest()->paginate(20)]);
+        return view('admin.orders.index', ['orders' => Order::with('user', 'items')->latest()->paginate(20)]);
     }
 
     public function products()

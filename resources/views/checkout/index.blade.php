@@ -15,19 +15,36 @@
             @csrf
             <h1 class="text-2xl font-black text-gray-900">Secure Checkout</h1>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                    <label class="text-sm font-semibold text-gray-700">Name</label>
-                    <input readonly value="{{ auth()->user()->name }}" class="w-full p-3 border border-gray-200 rounded-xl bg-gray-50 text-gray-500 mt-1">
-                </div>
-                <div>
-                    <label class="text-sm font-semibold text-gray-700">Email</label>
-                    <input readonly value="{{ auth()->user()->email }}" class="w-full p-3 border border-gray-200 rounded-xl bg-gray-50 text-gray-500 mt-1">
-                </div>
+                @auth
+                    <div>
+                        <label class="text-sm font-semibold text-gray-700">Name</label>
+                        <input readonly value="{{ auth()->user()->name }}" class="w-full p-3 border border-gray-200 rounded-xl bg-gray-50 text-gray-500 mt-1">
+                    </div>
+                    <div>
+                        <label class="text-sm font-semibold text-gray-700">Email</label>
+                        <input readonly value="{{ auth()->user()->email }}" class="w-full p-3 border border-gray-200 rounded-xl bg-gray-50 text-gray-500 mt-1">
+                    </div>
+                @else
+                    <div @class(['', 'border-2 border-red-300 rounded-xl' => $errors->has('guest_name')])>
+                        <label class="text-sm font-semibold text-gray-700">Name</label>
+                        <input id="guestName" name="guest_name" value="{{ old('guest_name') }}" placeholder="Your full name" class="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary mt-1" required>
+                        @error('guest_name')
+                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div @class(['', 'border-2 border-red-300 rounded-xl' => $errors->has('guest_email')])>
+                        <label class="text-sm font-semibold text-gray-700">Email</label>
+                        <input type="email" name="guest_email" value="{{ old('guest_email') }}" placeholder="you@example.com" class="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary mt-1" required>
+                        @error('guest_email')
+                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+                @endauth
             </div>
 
             <div @class(['', 'border-2 border-red-300 rounded-xl' => $errors->has('phone')])>
                 <label class="text-sm font-semibold text-gray-700">Phone Number</label>
-                <input name="phone" value="{{ old('phone', auth()->user()->phone) }}" placeholder="+234..." class="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary mt-1" required>
+                <input id="phone" name="phone" value="{{ old('phone', auth()->user()?->phone) }}" placeholder="+234..." class="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary mt-1" required>
                 @error('phone')
                     <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                 @enderror
@@ -35,13 +52,13 @@
 
             <div @class(['', 'border-2 border-red-300 rounded-xl' => $errors->has('address')])>
                 <label class="text-sm font-semibold text-gray-700">Delivery Address</label>
-                <textarea name="address" rows="4" placeholder="Enter your delivery address" class="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary mt-1" required>{{ old('address', auth()->user()->address) }}</textarea>
+                <textarea id="address" name="address" rows="4" placeholder="Enter your delivery address" class="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary mt-1" required>{{ old('address', auth()->user()?->address) }}</textarea>
                 @error('address')
                     <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>
 
-            <div @class(['', 'border-2 border-red-300 rounded-xl' => $errors->has('payment_method')])>
+            <!-- <div @class(['', 'border-2 border-red-300 rounded-xl' => $errors->has('payment_method')])>
                 <label class="text-sm font-semibold text-gray-700">Payment Method</label>
                 <select name="payment_method" id="paymentMethod" class="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary mt-1" required onchange="toggleCardFields()">
                     <option value="">Select payment method</option>
@@ -51,7 +68,7 @@
                 @error('payment_method')
                     <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                 @enderror
-            </div>
+            </div> -->
 
             <!-- Card Payment Fields (Hidden by default) -->
             <div id="cardFields" class="space-y-4 hidden">
@@ -110,7 +127,9 @@
                 </div>
             </div>
 
-            <button type="submit" class="w-full bg-primary hover:bg-secondary text-white font-bold px-6 py-4 rounded-xl transition">Place Order (₦{{ number_format($total, 0, '.', ',') }})</button>
+            <button type="submit" onclick="openWhatsAppHandoff()" class="w-full bg-primary hover:bg-secondary text-white font-bold px-6 py-4 rounded-xl transition">
+                <i class="fab fa-whatsapp mr-2"></i>Place Order & Chat on WhatsApp (₦{{ number_format($total, 0, '.', ',') }})
+            </button>
         </form>
 
         <aside class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 h-fit">
@@ -120,24 +139,78 @@
                     <div class="flex justify-between items-center text-sm">
                         <div>
                             <p class="font-semibold text-gray-900">{{ $item['product']->name }}</p>
-                            <p class="text-gray-500 text-xs">Qty: {{ $item['quantity'] }}</p>
+                            <p class="text-gray-500 text-xs">₦{{ number_format($item['product']->price, 0, '.', ',') }} &times; {{ $item['quantity'] }}</p>
                         </div>
                         <span class="font-bold text-primary">₦{{ number_format($item['price'], 0, '.', ',') }}</span>
                     </div>
                 @endforeach
             </div>
-            <div class="border-t mt-5 pt-5 flex justify-between font-black text-primary text-lg">
-                <span>Total</span>
-                <span>₦{{ number_format($total, 0, '.', ',') }}</span>
+
+            <div class="border-t mt-5 pt-5 space-y-2 text-sm">
+                <div class="flex justify-between">
+                    <span class="text-gray-500">Subtotal</span>
+                    <span class="font-semibold">₦{{ number_format($subtotal, 0, '.', ',') }}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-500">Shipping Fee</span>
+                    <span class="font-semibold">₦{{ number_format($shippingFee, 0, '.', ',') }}</span>
+                </div>
+                <div class="flex justify-between font-black text-primary text-lg pt-2 border-t">
+                    <span>Total</span>
+                    <span>₦{{ number_format($total, 0, '.', ',') }}</span>
+                </div>
             </div>
         </aside>
     </main>
 
+    @php
+        $whatsappItemLines = collect($items)->map(function ($item) {
+            $unitPrice = number_format($item['product']->price, 0, '.', ',');
+            $subtotal = number_format($item['price'], 0, '.', ',');
+            return "{$item['product']->name} - ({$item['quantity']} x ₦{$unitPrice}) = ₦{$subtotal}";
+        })->values();
+        $whatsappOrderTotalText = '₦' . number_format($total, 0, '.', ',');
+        $whatsappSubtotalText = '₦' . number_format($subtotal, 0, '.', ',');
+        $whatsappShippingFeeText = '₦' . number_format($shippingFee, 0, '.', ',');
+    @endphp
+
     <script>
+        const whatsappBusinessNumber = '2348060911051';
+        const whatsappOrderItems = @json($whatsappItemLines);
+        const whatsappOrderTotal = @json($whatsappOrderTotalText);
+        const whatsappSubtotal = @json($whatsappSubtotalText);
+        const whatsappShippingFee = @json($whatsappShippingFeeText);
+        const whatsappAuthName = @json(auth()->user()->name ?? null);
+
+        function openWhatsAppHandoff() {
+            const name = whatsappAuthName || document.getElementById('guestName')?.value || 'Customer';
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+
+            const lines = [
+                'Hello, I would like to finalize my order.',
+                '',
+                `Name: ${name}`,
+                `Phone: ${phone}`,
+                `Delivery Address: ${address}`,
+                '',
+                'Order Items:',
+                ...whatsappOrderItems.map(item => `- ${item}`),
+                '',
+                `Subtotal: ${whatsappSubtotal}`,
+                `Shipping Fee: ${whatsappShippingFee}`,
+                `Total: ${whatsappOrderTotal}`,
+            ];
+
+            window.open(`https://wa.me/${whatsappBusinessNumber}?text=${encodeURIComponent(lines.join('\n'))}`, '_blank');
+        }
+
         function toggleCardFields() {
-            const method = document.getElementById('paymentMethod').value;
+            const method = document.getElementById('paymentMethod')?.value;
             const cardFields = document.getElementById('cardFields');
-            
+
+            if (!cardFields) return;
+
             if (method === 'card') {
                 cardFields.classList.remove('hidden');
             } else {

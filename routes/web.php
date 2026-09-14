@@ -23,6 +23,9 @@ Route::post('/cart/add/{slug}', [CartController::class, 'add'])->name('cart.add'
 Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
 Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
 Route::get('/subscriptions', [SubscriptionController::class, 'index'])->name('subscriptions.index');
+Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout.index');
+Route::post('/checkout', [OrderController::class, 'store'])->name('orders.store');
+Route::get('/checkout/confirmation/{order}', [OrderController::class, 'confirmation'])->name('checkout.confirmation');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'loginForm'])->name('login');
@@ -35,9 +38,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->n
 Route::post('/ui-shell-action', PlaceholderActionController::class)->name('placeholder.action');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout.index');
-    Route::post('/checkout', [OrderController::class, 'store'])->name('orders.store');
-    Route::get('/checkout/confirmation/{order}', [OrderController::class, 'confirmation'])->name('checkout.confirmation');
     Route::post('/subscribe/{subscription}', [SubscriptionController::class, 'subscribe'])->name('subscriptions.subscribe');
     Route::get('/dashboard', [CustomerController::class, 'dashboard'])->name('dashboard');
     Route::get('/profile', [CustomerController::class, 'profile'])->name('profile.edit');

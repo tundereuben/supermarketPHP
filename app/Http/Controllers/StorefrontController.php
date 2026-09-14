@@ -83,11 +83,13 @@ class StorefrontController extends Controller
             }
         }
 
+        $shipping = empty($items) ? 0 : OrderController::SHIPPING_FEE;
+
         return view('cart.index', [
             'items' => $items,
             'subtotal' => $subtotal,
-            'shipping' => 0,
-            'total' => $subtotal,
+            'shipping' => $shipping,
+            'total' => $subtotal + $shipping,
         ]);
     }
 

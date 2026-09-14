@@ -12,7 +12,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
                 <div class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm"><div class="text-xs font-bold text-gray-400 uppercase">Total Spend</div><div class="text-2xl font-black mt-2">₦45,800</div></div>
                 <div class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm"><div class="text-xs font-bold text-gray-400 uppercase">Orders</div><div class="text-2xl font-black mt-2">{{ count($orders) }}</div></div>
-                <div class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm"><div class="text-xs font-bold text-gray-400 uppercase">Active Basket</div><div class="text-2xl font-black mt-2">{{ $subscription['name'] }}</div></div>
+                <div class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm"><div class="text-xs font-bold text-gray-400 uppercase">Active Basket</div><div class="text-2xl font-black mt-2">{{ $subscription?->subscription?->name ?? 'No active plan' }}</div></div>
             </div>
             <div class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
                 <div class="flex items-center justify-between mb-4">
@@ -21,8 +21,8 @@
                 </div>
                 @foreach($orders as $order)
                     <div class="flex items-center justify-between py-4 border-t first:border-t-0">
-                        <div><div class="font-bold">{{ $order['number'] }}</div><div class="text-xs text-gray-400">{{ $order['date'] }} / {{ $order['items'] }} items</div></div>
-                        <div class="font-black">{{ \App\Support\PrototypeData::money($order['total']) }}</div>
+                        <div><div class="font-bold">{{ $order->order_number }}</div><div class="text-xs text-gray-400">{{ $order->created_at->format('F j, Y') }} / {{ $order->items->count() }} items</div></div>
+                        <div class="font-black">{{ \App\Support\PrototypeData::money($order->total) }}</div>
                     </div>
                 @endforeach
             </div>

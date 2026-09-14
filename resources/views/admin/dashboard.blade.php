@@ -49,7 +49,7 @@
                 @forelse($orders as $order)
                     <tr class="border-b border-gray-100 hover:bg-gray-50">
                         <td class="px-6 py-4 font-medium text-gray-900">{{ $order->order_number }}</td>
-                        <td class="px-6 py-4 text-gray-600">{{ $order->user->name }}</td>
+                        <td class="px-6 py-4 text-gray-600">{{ $order->user->name ?? $order->guest_name ?? 'Guest' }}</td>
                         <td class="px-6 py-4 text-gray-600">{{ $order->items->count() }}</td>
                         <td class="px-6 py-4 font-semibold text-gray-900">₦{{ number_format($order->total) }}</td>
                         <td class="px-6 py-4">
@@ -68,5 +68,6 @@
         </table>
     </div>
 </div>
+<div class="mt-5 p-6 border-t border-gray-100"></div>
 @endsection
 

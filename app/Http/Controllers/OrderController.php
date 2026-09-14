@@ -12,6 +12,8 @@ use Illuminate\Support\Str;
 
 class OrderController extends Controller
 {
+    public const SHIPPING_FEE = 3000;
+
     public function checkout(Request $request)
     {
         $cartData = $request->session()->get('cart', []);
@@ -22,7 +24,7 @@ class OrderController extends Controller
 
         $products = Product::whereIn('id', array_keys($cartData))->get()->keyBy('id');
         $items = [];
-        $total = 0;
+        $subtotal = 0;
 
         foreach ($cartData as $productId => $quantity) {
             if (isset($products[$productId])) {
@@ -32,13 +34,15 @@ class OrderController extends Controller
                     'quantity' => $quantity,
                     'price' => $product->price * $quantity,
                 ];
-                $total += $product->price * $quantity;
+                $subtotal += $product->price * $quantity;
             }
         }
 
         return view('checkout.index', [
             'items' => $items,
-            'total' => $total,
+            'subtotal' => $subtotal,
+            'shippingFee' => self::SHIPPING_FEE,
+            'total' => $subtotal + self::SHIPPING_FEE,
         ]);
     }
 
@@ -51,13 +55,22 @@ class OrderController extends Controller
         }
 
         $validated = $request->validate([
+            'guest_name' => ['nullable', 'string', 'max:255'],
+            'guest_email' => ['nullable', 'email', 'max:255'],
             'phone' => ['required', 'string', 'max:30'],
             'address' => ['required', 'string', 'max:500'],
-            'payment_method' => ['required', 'string', 'in:cash,card'],
+            'payment_method' => ['nullable', 'string', 'in:cash,card,whatsapp'],
             'card_number' => ['nullable', 'required_if:payment_method,card', 'regex:/^\d{16}$/'],
             'card_expiry' => ['nullable', 'required_if:payment_method,card', 'regex:/^\d{2}\/\d{2}$/'],
             'card_cvv' => ['nullable', 'required_if:payment_method,card', 'regex:/^\d{3,4}$/'],
         ]);
+
+        // No payment method field on the checkout form means the order is finalized manually via WhatsApp
+        $validated['payment_method'] = $validated['payment_method'] ?? 'whatsapp';
+
+        if (! auth()->check() && (empty($validated['guest_name']) || empty($validated['guest_email']))) {
+            return back()->withInput()->withErrors(['guest_name' => 'Name and email are required for guest checkout.']);
+        }
 
         $products = Product::whereIn('id', array_keys($cartData))->get()->keyBy('id');
         $subtotal = 0;
@@ -92,10 +105,12 @@ class OrderController extends Controller
             // Create order with payment status
             $order = Order::create([
                 'user_id' => auth()->id(),
+                'guest_name' => auth()->check() ? null : $validated['guest_name'],
+                'guest_email' => auth()->check() ? null : $validated['guest_email'],
                 'order_number' => 'ORD-' . date('Y') . '-' . str_pad(Order::count() + 1, 4, '0', STR_PAD_LEFT),
                 'subtotal' => $subtotal,
-                'shipping_fee' => 0,
-                'total' => $subtotal,
+                'shipping_fee' => self::SHIPPING_FEE,
+                'total' => $subtotal + self::SHIPPING_FEE,
                 'status' => $paymentStatus === 'paid' ? 'processing' : 'pending',
                 'shipping_address' => $validated['address'],
                 'phone' => $validated['phone'],
@@ -123,6 +138,10 @@ class OrderController extends Controller
         // Clear cart
         $request->session()->forget('cart');
 
+        if (! auth()->check()) {
+            $request->session()->push('guest_order_ids', $order->id);
+        }
+
         return redirect()->route('checkout.confirmation', $order->id)->with('success', 'Order created successfully!');
     }
 
@@ -149,8 +168,10 @@ class OrderController extends Controller
 
     public function confirmation(Order $order)
     {
-        // Ensure user can only view their own order confirmation
-        if ($order->user_id !== auth()->id()) {
+        // Guests own an order only if its id was recorded in their session at checkout time
+        $ownsAsGuest = ! auth()->check() && in_array($order->id, session('guest_order_ids', []));
+
+        if (! $ownsAsGuest && $order->user_id !== auth()->id()) {
             abort(403, 'Unauthorized');
         }
 

@@ -51,6 +51,6 @@ class CustomerController extends Controller
 
     public function orders()
     {
-        return view('orders.index', ['orders' => Auth::user()->orders()->latest()->paginate(10)]);
+        return view('orders.index', ['orders' => Auth::user()->orders()->with('items')->latest()->paginate(10)]);
     }
 }

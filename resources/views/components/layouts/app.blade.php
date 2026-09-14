@@ -7,7 +7,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-gray-50 text-gray-800 antialiased">
-    <div class="bg-secondary text-white py-2 text-center text-sm font-semibold">Free Delivery on orders above ₦20,000! Shop Now.</div>
+    <div class="bg-secondary text-white py-2 text-center text-sm font-semibold">Free Delivery on orders above ₦50,000! Shop Now.</div>
 
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-4 py-3 flex items-center justify-between gap-4">
@@ -33,11 +33,15 @@
                 @endauth
                 <a href="{{ route('wishlist.index') }}" class="hidden md:flex flex-col items-center hover:text-primary transition relative">
                     <i class="far fa-heart text-xl"></i><span class="text-xs mt-1">Wishlist</span>
-                    <span class="absolute -top-1 -right-1 bg-accent text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center font-bold">3</span>
+                    @if($wishlistCount > 0)
+                        <span class="absolute -top-1 -right-1 bg-accent text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center font-bold">{{ $wishlistCount }}</span>
+                    @endif
                 </a>
                 <a href="{{ route('cart.index') }}" class="flex flex-col items-center hover:text-primary transition relative">
                     <i class="fas fa-shopping-cart text-xl text-primary"></i><span class="text-xs mt-1">Cart</span>
-                    <span class="absolute -top-1 -right-1 bg-accent text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center font-bold">5</span>
+                    @if($cartCount > 0)
+                        <span class="absolute -top-1 -right-1 bg-accent text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center font-bold">{{ $cartCount }}</span>
+                    @endif
                 </a>
             </nav>
         </div>

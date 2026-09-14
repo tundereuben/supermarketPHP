@@ -4,7 +4,7 @@
         <section class="flex-1">
             <div class="flex justify-between items-center mb-6">
                 <h1 class="text-2xl font-black text-gray-900">Saved Wishlist Items</h1>
-                <span class="text-sm text-gray-500">{{ $products->total() }} items</span>
+                <span class="text-sm text-gray-500">{{ $wishlists->total() }} items</span>
             </div>
 
             @if (session('success'))
