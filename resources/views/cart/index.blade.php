@@ -15,17 +15,24 @@
                             <h2 class="font-black text-gray-900">{{ $item['product']->name }}</h2>
                             <p class="text-xs text-gray-400 mt-1">{{ $item['product']->unit }}</p>
                             <div class="flex items-center justify-between mt-4">
-                                <form action="{{ route('cart.update', $item['product']->id) }}" method="POST" class="flex items-center gap-2">
+                                <form action="{{ route('cart.update', $item['product']->id) }}" method="POST" data-cart-quantity-form class="flex items-center gap-2">
                                     @csrf
-                                    <label for="quantity" class="sr-only hidden">Quantity</label>
-                                    <input id="quantity" type="number" name="quantity" value="{{ $item['quantity'] }}" min="1"
-                                           class="w-16 border border-gray-200 rounded-lg text-center text-sm py-1">
-                                    <button class="text-xs font-bold text-primary" style="pointer: cursor">Update</button>
+                                    <label for="quantity-{{ $item['product']->id }}" class="sr-only">Quantity for {{ $item['product']->name }}</label>
+                                    <button type="button" data-quantity-step="-1" aria-label="Decrease {{ $item['product']->name }} quantity" class="h-9 w-9 border border-gray-200 rounded-lg text-gray-600 hover:bg-gray-50 disabled:opacity-40" title="Decrease quantity">
+                                        <i class="fas fa-minus text-xs" aria-hidden="true"></i>
+                                    </button>
+                                    <input id="quantity-{{ $item['product']->id }}" type="number" name="quantity" value="{{ $item['quantity'] }}" min="1" required data-cart-quantity
+                                           class="w-14 h-9 border border-gray-200 rounded-lg text-center text-sm">
+                                    <button type="button" data-quantity-step="1" aria-label="Increase {{ $item['product']->name }} quantity" class="h-9 w-9 border border-gray-200 rounded-lg text-gray-600 hover:bg-gray-50" title="Increase quantity">
+                                        <i class="fas fa-plus text-xs" aria-hidden="true"></i>
+                                    </button>
                                 </form>
                                 <span class="font-bold">{{ \App\Support\PrototypeData::money($item['total']) }}</span>
                                 <form action="{{ route('cart.remove', $item['product']->id) }}" method="POST">
                                     @csrf
-                                    <button class="text-red-500 text-sm font-bold" style="pointer: cursor">Remove</button>
+                                    <button type="submit" aria-label="Remove {{ $item['product']->name }} from cart" title="Remove from cart" class="p-2 text-red-500 hover:text-red-700 transition">
+                                        <i class="fas fa-trash-can" aria-hidden="true"></i>
+                                    </button>
                                 </form>
                             </div>
                         </div>

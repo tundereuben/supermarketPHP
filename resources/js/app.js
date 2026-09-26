@@ -1,5 +1,28 @@
 import "@fortawesome/fontawesome-free/css/all.css";
 
+document.querySelectorAll("[data-cart-quantity-form]").forEach((form) => {
+    const quantityInput = form.querySelector("[data-cart-quantity]");
+
+    form.querySelectorAll("[data-quantity-step]").forEach((button) => {
+        button.addEventListener("click", () => {
+            const step = Number(button.dataset.quantityStep);
+            const quantity = Math.max(
+                Number(quantityInput.min) || 1,
+                (Number(quantityInput.value) || 1) + step,
+            );
+
+            quantityInput.value = String(quantity);
+            form.requestSubmit();
+        });
+    });
+
+    quantityInput.addEventListener("change", () => {
+        if (quantityInput.reportValidity()) {
+            form.requestSubmit();
+        }
+    });
+});
+
 const adminSidebar = document.querySelector("[data-admin-sidebar]");
 
 if (adminSidebar) {
