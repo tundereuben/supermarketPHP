@@ -23,16 +23,16 @@
 
             <nav class="flex items-center space-x-5 text-gray-600">
                 @auth
-                    <a href="{{ route('dashboard') }}" class="hidden md:flex flex-col items-center hover:text-primary transition">
-                        <i class="far fa-user text-xl"></i><span class="text-xs mt-1">{{ Str::before(auth()->user()->name, ' ') }}</span>
+                    <a href="{{ route('dashboard') }}" class="flex flex-col items-center hover:text-primary transition">
+                        <i class="far fa-user text-xl"></i><span class="hidden md:block text-xs mt-1">{{ Str::before(auth()->user()->name, ' ') }}</span>
                     </a>
                 @else
-                    <a href="{{ route('login') }}" class="hidden md:flex flex-col items-center hover:text-primary transition">
-                        <i class="far fa-user text-xl"></i><span class="text-xs mt-1">Account</span>
+                    <a href="{{ route('login') }}" class="flex flex-col items-center hover:text-primary transition">
+                        <i class="far fa-user text-xl"></i><span class="hidden md:block text-xs mt-1">Account</span>
                     </a>
                 @endauth
-                <a href="{{ route('wishlist.index') }}" class="hidden md:flex flex-col items-center hover:text-primary transition relative">
-                    <i class="far fa-heart text-xl"></i><span class="text-xs mt-1">Wishlist</span>
+                <a href="{{ route('wishlist.index') }}" class="flex flex-col items-center hover:text-primary transition relative">
+                    <i class="far fa-heart text-xl"></i><span class="hidden md:block text-xs mt-1">Wishlist</span>
                     @if($wishlistCount > 0)
                         <span class="absolute -top-1 -right-1 bg-accent text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center font-bold">{{ $wishlistCount }}</span>
                     @endif

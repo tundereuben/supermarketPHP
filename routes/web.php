@@ -51,6 +51,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
     Route::get('/orders', [AdminController::class, 'orders'])->name('orders.index');
+    Route::patch('/orders/{order}/status', [AdminController::class, 'updateOrderStatus'])->name('orders.updateStatus');
     Route::resource('/products', AdminProductController::class);
     Route::get('/subscriptions', [AdminController::class, 'subscriptions'])->name('subscriptions.index');
     Route::get('/customers', [AdminController::class, 'customers'])->name('customers.index');

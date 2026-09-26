@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Subscription;
 use App\Models\User;
 use App\Models\UserSubscription;
+use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
@@ -28,6 +29,17 @@ class AdminController extends Controller
     public function orders()
     {
         return view('admin.orders.index', ['orders' => Order::with('user', 'items')->latest()->paginate(20)]);
+    }
+
+    public function updateOrderStatus(Request $request, Order $order)
+    {
+        $request->validate([
+            'status' => 'required|in:pending,processing,completed,cancelled',
+        ]);
+
+        $order->update(['status' => $request->status]);
+
+        return back()->with('success', 'Order status updated.');
     }
 
     public function products()
